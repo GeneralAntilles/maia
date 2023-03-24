@@ -1,0 +1,81 @@
+th {
+    text-align: center;
+}
+th.score-headers {
+    width: 3rem;
+}
+th.score-range-labels {
+    font-size: 0.75rem;
+    padding: 0.3rem 0 0.3rem 0;
+    font-size: 0.8rem;
+
+}
+td.score-radio {
+    vertical-align: middle;
+    text-align: center;
+}
+td.score-radio, th.score-headers {
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+thead > tr > th:nth-child(2) {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+thead > tr > th:nth-child(3) {
+    border-top: 1px solid #ccc;
+}
+thead > tr > th:last-child {
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 0.2rem 0;
+    justify-content: space-between;
+}
+/* Alternative row colors */
+.form-group:nth-child(odd) {
+    background-color: #f5f5f5;
+}
+.form-group > label {
+    flex: 0 8 65%;
+}
+.form-check {
+    display: flex;
+    flex: 0 0.3 4rem;
+}
+.form-check > input {
+    display: block;
+    margin-left: 0 !important;
+    align-self: center;
+}
+legend {
+    font-weight: bold;
+}
+legend.categories {
+    font-size: 1.2rem;
+}
+.headers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+}
+.headers > legend {
+    flex: 0 8 65%;
+}
+.hints > .header {
+    align-self: flex-end;
+}
+.header {
+    flex: 0 0.3 4rem;
+    text-align: center;
+    align-self: center;
+}
+fieldset {
+    margin-bottom: 1rem;
+}

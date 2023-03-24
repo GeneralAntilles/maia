@@ -1,0 +1,48 @@
+The content of this repository is licensed under the MIT License:
+
+MIT License
+
+Copyright (c) 2023 Ryan Abel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+The Multidimensional Assessment of Interoceptive Awareness (MAIA), while not
+included in this repository, is referenced and the scoring instructions are
+implemented as part of the web application. Their license is as follows:
+
+Multidimensional Assessment of Interoceptive Awareness
+Copyright (c) 2018 University of California San Francisco
+https://osher.ucsf.edu/maia/
+
+Although the MAIA survey is copyrighted, it is available without charge and no
+written permission is required for its use. This assumes agreement with the
+following as a consequence of using a MAIA survey:
+* Please refer to the survey using its complete name – Multidimensional
+Assessment of Interoceptive Awareness - and provide the appropriate citation.
+* Modifications may be made without our written permission. However, please
+clearly identify any modifications in any publications as having been made by
+the users. If you modify the survey, please let us know for our records.
+* We recommend including entire subscales when selecting items from the MAIA
+to retain the psychometric features of these subscales (rather than selecting
+items from subscales).
+* If you translate the MAIA into another language, please send us a copy for
+our records. *If other investigators are interested in obtaining the survey,
+please refer them to the source document (PLoS- ONE 2012, and
+www.osher.ucsf.edu/maia/) to assure they obtain the most recent version and
+scoring instructions.

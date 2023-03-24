@@ -1,0 +1,35 @@
+<table>
+    <thead>
+        <tr>
+            <th scope="col" class="col-7" colspan="2"></th>
+            <th class="score-range-labels">Never</th>
+            <th colspan="4"></th>
+            <th class="score-range-labels">Always</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category_data in grouped_questions %}
+        <tr>
+            <th colspan="8">{{ category_data.category.name }}</th>
+        </tr>
+        {% for question in category_data.questions %}
+        {% with forloop.counter0 as form_index %}
+        {% with form=forms|slice:form_index|first %}
+        <tr>
+            <td>{{ form.id.value }}</td>
+            <td>{{ form.text.value }}</td>
+            <td>
+            {{ form.errors }}
+            {{ form.score.label }}
+            {% for radio in form.score %}
+                {{ radio }}
+                {{ radio.label }}
+            {% endfor %}
+            </td>
+        </tr>
+        {% endwith %}
+        {% endwith %}
+        {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
