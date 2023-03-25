@@ -5,30 +5,52 @@ async function updateScoreAsync(score) {
 
         // Add up all the radio button values for questions in this category
         var category_score = 0;
-        var question_values = document.querySelectorAll("input[type=radio]:checked." + category);
-        if (question_values.length == 0) {
+        var values = document.querySelectorAll(
+            "input[type=radio]:checked." + category);
+        if (values.length == 0) {
             category_score = "-";
         } else {
-            var question_count = document.querySelectorAll("label." + category).length;
-            for (var k = 0; k < question_values.length; k++) {
-                var question_score = parseInt(question_values[k].value);
+            var question_count = document.querySelectorAll(
+                "label." + category).length;
+            for (var k = 0; k < values.length; k++) {
+                var question_score = parseInt(values[k].value);
                 category_score += question_score;
             }
-            category_score = (category_score / question_values.length).toFixed(2);
+            category_score = (category_score / values.length).toFixed(2);
         }
 
         // Update the score
         score.innerHTML = category_score;
-        var score_value = score.innerHTML;
-        if (score_value == "-") {
+        if (score.innerHTML == "-") {
             score.style.color = "#000000";
             resolve();
         } else {
-            var score_value_int = parseInt(score_value);
+            var score_value_int = parseInt(score.innerHTML);
             // 0 to 5 scale
             updateScoreColor(score);
             resolve();
         }
+        var scores = document.getElementsByClassName("score");
+        var total_score = document.getElementById("total-score");
+        var total_score_value = 0;
+        var total_score_count = 0;
+        for (var i = 0; i < scores.length; i++) {
+            var score_value = scores[i].innerHTML;
+            if (score_value == "-") {
+                continue;
+            }
+            total_score_value += parseInt(score_value);
+            console.log(total_score_value)
+            total_score_count += 1;
+        }
+        if (total_score_count == 0) {
+            total_score.innerHTML = "-";
+        } else {
+            console.log(total_score_value)
+            total_score.innerHTML = (total_score_value / total_score_count).toFixed(2);
+        }
+        updateScoreColor(total_score);
+        resolve();
     });
 }
 
@@ -63,10 +85,9 @@ async function updateScores() {
 }
 
 // Event listener on radio buttons
-var radioButtons = document.getElementsByTagName("input");
+var radioButtons = document.querySelectorAll("input[type=radio]");
 for (var i = 0; i < radioButtons.length; i++) {
-    var radioButton = radioButtons[i];
-    radioButton.addEventListener("click", function() {
+    radioButtons[i].addEventListener("click", function() {
         updateScores();
     });
 }
