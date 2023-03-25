@@ -40,13 +40,11 @@ async function updateScoreAsync(score) {
                 continue;
             }
             total_score_value += parseInt(score_value);
-            console.log(total_score_value)
             total_score_count += 1;
         }
         if (total_score_count == 0) {
             total_score.innerHTML = "-";
         } else {
-            console.log(total_score_value)
             total_score.innerHTML = (total_score_value / total_score_count).toFixed(2);
         }
         updateScoreColor(total_score);
