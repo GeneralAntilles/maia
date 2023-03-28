@@ -10,6 +10,8 @@ class Questionnaire(models.Model):
     internal_name = models.CharField(max_length=100, unique=True, null=False,
                                      blank=False)
     source = models.URLField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    instructions = models.TextField(null=True, blank=True)
 
     @property
     def questions(self):
