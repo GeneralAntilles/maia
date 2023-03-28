@@ -124,6 +124,6 @@ fieldset {
     }
     .form-group > label {
         flex: 0 8 65%;
-        padding: 0;
+        padding: 0.2rem;
     }
 }
