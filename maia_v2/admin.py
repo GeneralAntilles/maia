@@ -20,7 +20,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class QuestionnaireAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'internal_name', 'questions')
+    list_display = ('id', 'name', 'internal_name', 'description', 'questions')
     search_fields = ('name', 'internal_name')
 
 
