@@ -19,7 +19,7 @@ class Questionnaire(models.Model):
         return self.question_set.count()
 
     def __str__(self):
-        return f'{self.name} ({self.internal_name})'
+        return self.internal_name
 
 
 class QuestionCategory(models.Model):
@@ -43,7 +43,7 @@ class QuestionCategory(models.Model):
         return self.question_set.count()
 
     def __str__(self):
-        return f'{self.name} ({self.internal_name})'
+        return self.internal_name
 
 
 class Question(models.Model):
