@@ -4,7 +4,7 @@
 {% block head_title %}{% trans "Home" %}{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-lg">
     <h1>MAIA v2 Questionnaire</h1>
     <p>Read the following statements and select the response that best describes your experience over the past two weeks.</p>
     <form id="maia-v2">
@@ -23,6 +23,7 @@
         <fieldset>
             <div class="headers">
                 <legend class="categories">{{ question.category.name }}</legend>
+                <div class="form-break"></div>
                 <span class="header">0</span>
                 <span class="header">1</span>
                 <span class="header">2</span>
@@ -33,6 +34,7 @@
         {% endifchanged %}
         <div class="form-group">
             <label for="question{{ forloop.counter }}">{{ question.id }}. {{ question.text }}</label>
+            <div class="form-break"></div>
             <div class="form-check">
                 <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option0" value="{% if question.reverse %}5{% else %}0{% endif %}">
             </div>
