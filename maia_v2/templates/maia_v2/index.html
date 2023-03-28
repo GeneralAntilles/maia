@@ -5,65 +5,14 @@
 
 {% block content %}
 <div class="container-lg">
-    <h1>MAIA v2 Questionnaire</h1>
-    <p>Read the following statements and select the response that best describes your experience over the past two weeks.</p>
-    <form id="maia-v2">
-        <div class="headers hints">
-            <legend>Questions</legend>
-            <span class="header">Never</span>
-            <span class="header"></span>
-            <span class="header"></span>
-            <span class="header"></span>
-            <span class="header"></span>
-            <span class="header">Always</span>
-        </div>
-        {% for question in questions %}
-        {% ifchanged question.category %}
-        </fieldset>
-        <fieldset>
-            <div class="headers">
-                <legend class="categories">{{ question.category.name }}</legend>
-                <div class="form-break"></div>
-                <span class="header">0</span>
-                <span class="header">1</span>
-                <span class="header">2</span>
-                <span class="header">3</span>
-                <span class="header">4</span>
-                <span class="header">5</span>
-            </div>
-        {% endifchanged %}
-        <div class="form-group">
-            <label for="question{{ forloop.counter }}">{{ question.id }}. {{ question.text }}</label>
-            <div class="form-break"></div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option0" value="{% if question.reverse %}5{% else %}0{% endif %}">
-            </div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option1" value="{% if question.reverse %}4{% else %}1{% endif %}">
-            </div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option2" value="{% if question.reverse %}3{% else %}2{% endif %}">
-            </div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option3" value="{% if question.reverse %}2{% else %}3{% endif %}">
-            </div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option4" value="{% if question.reverse %}1{% else %}4{% endif %}">
-            </div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option5" value="{% if question.reverse %}0{% else %}5{% endif %}">
-            </div>
-        </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <div id="score">
-        <ul>
-        {% for category in categories %}
-            <li>{{ category.name }}: <span class="{{ category.internal_name }} score">-</span></li>
-        {% endfor %}
-        </ul>
-        <p>Total score: <span id="total-score">-</span></p>
-    </div>
-<script src="{% static 'maia_v2.js' %}"></script>
+    <h1>Abelify</h1>
+    <p>come get your tests</p>
+    <ul>
+    {% for questionnaire in questionnaires %}
+        <li class="questionnaire">
+            <a href="{% url 'questionnaire' questionnaire.internal_name %}">{{ questionnaire.name }}</a> - {{ questionnaire.description }}
+        </li>
+    {% endfor %}
+    </ul>
+</div>
 {% endblock %}

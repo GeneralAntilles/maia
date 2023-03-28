@@ -1,27 +1,23 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.views.generic import View
 
 from .forms import MAIAForm
-from .models import Question, QuestionCategory
+from .models import Question, QuestionCategory, Questionnaire
 
 
 def index(request):
-    form = MAIAForm()
-    print(form)
-    return render(
-        request, 'maia_v2/index.html',
-        {'questions': Question.objects.all(), 'categories': QuestionCategory.objects.all()},
-    )
+    questionnaires = Questionnaire.objects.filter(published=True)
+
+    return render(request, 'maia_v2/index.html', {'questionnaires': questionnaires})
 
 
-def questionnaire(request):
-    if request.method == 'POST':
-        form = MAIAForm(request.POST)
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
-    else:
-        form = MAIAForm()
-    return render(request, 'maia_v2/questionnaire.html', {'form': form})
+class QuestionnaireFormView(View):
+    def get(self, request, questionnaire):
+        self.questionnaire = Questionnaire.objects.get(internal_name=questionnaire)
+        response = {
+            'questions': Question.objects.filter(questionnaire=self.questionnaire),
+            'categories': QuestionCategory.objects.filter(questionnaire=self.questionnaire),
+        }
+
+        return render(request, f'maia_v2/{questionnaire}.html', response)
