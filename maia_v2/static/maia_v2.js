@@ -22,7 +22,7 @@ async function updateScoreAsync(score) {
         // Update the score
         score.innerHTML = category_score;
         if (score.innerHTML == "-") {
-            score.style.color = "#000000";
+            score.style = null;
             resolve();
         } else {
             var score_value_int = parseInt(score.innerHTML);
@@ -109,3 +109,17 @@ function updateScoreColor(ele) {
         ele.style.color = "#00ffff";
     }
 }
+
+// Set theme to the user's preferred color scheme
+function updateTheme() {
+    const colorMode = window.matchMedia("(prefers-color-scheme: dark)").matches ?
+      "dark" :
+      "light";
+    document.querySelector("html").setAttribute("data-bs-theme", colorMode);
+  }
+
+  // Set theme on load
+  updateTheme()
+
+  // Update theme when the preferred scheme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
