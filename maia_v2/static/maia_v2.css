@@ -30,7 +30,7 @@ thead > tr > th:last-child {
     border-right: 1px solid #ccc;
 }
 
-.form-group{
+.form-group {
     display: flex;
     flex-direction: row;
     margin: 0 0 0.2rem 0;
