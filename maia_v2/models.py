@@ -59,6 +59,7 @@ class Question(models.Model):
                                  null=True)
     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE,
                                       null=False, blank=False, default=1)
+    required = models.BooleanField(default=True)
     reverse_score = models.BooleanField(default=False)
 
 
