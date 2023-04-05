@@ -1,6 +1,7 @@
 {% extends 'maia_v2/base.html' %}
 {% load i18n %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block head_title %}{{ questionnaire.name }}{% endblock %}
 
 {% block js %}
@@ -9,59 +10,9 @@
 
 {% block content %}
 <div class="container-lg">
-    <h1>MAIA v2 Questionnaire</h1>
+    <h1>{{ questionnaire.name }}</h1>
     <p>Read the following statements and select the response that best describes your experience over the past two weeks.</p>
-    <form id="maia-v2">
-        <div class="headers hints">
-            <legend>Questions</legend>
-            <span class="header">Never</span>
-            <span class="header"></span>
-            <span class="header"></span>
-            <span class="header"></span>
-            <span class="header"></span>
-            <span class="header">Always</span>
-        </div>
-        {% for question in questions %}
-        {% ifchanged question.category %}
-        </fieldset>
-        <fieldset>
-            <div class="headers">
-                <legend class="categories">{{ question.category.name }}</legend>
-                <div class="form-break"></div>
-                <span class="header">0</span>
-                <span class="header">1</span>
-                <span class="header">2</span>
-                <span class="header">3</span>
-                <span class="header">4</span>
-                <span class="header">5</span>
-            </div>
-        {% endifchanged %}
-        <div class="form-group">
-            <label for="question{{ forloop.counter }}">{{ question.id }}. {{ question.text }}</label>
-            <div class="form-break"></div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option0" value="{% if question.reverse %}5{% else %}0{% endif %}">
-            </div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option1" value="{% if question.reverse %}4{% else %}1{% endif %}">
-            </div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option2" value="{% if question.reverse %}3{% else %}2{% endif %}">
-            </div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option3" value="{% if question.reverse %}2{% else %}3{% endif %}">
-            </div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option4" value="{% if question.reverse %}1{% else %}4{% endif %}">
-            </div>
-            <div class="form-check">
-                <input class="form-check-input {{ question.category.internal_name }}" type="radio" name="question{{ forloop.counter }}" id="question{{ forloop.counter }}-option5" value="{% if question.reverse %}0{% else %}5{% endif %}">
-            </div>
-        </div>
-        {% endfor %}
-        </fieldset>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    {% crispy form %}
     <div id="score">
         <ul>
         {% for category in categories %}
