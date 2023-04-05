@@ -6,7 +6,8 @@ async function updateScoreAsync(score) {
         // Add up all the radio button values for questions in this category
         var category_score = 0;
         var values = document.querySelectorAll(
-            "input[type=radio]:checked." + category);
+            "." + category + " .form-check > input[type=radio]:checked");
+
         if (values.length == 0) {
             category_score = "-";
         } else {
