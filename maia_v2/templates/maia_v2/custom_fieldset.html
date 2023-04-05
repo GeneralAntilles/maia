@@ -1,0 +1,16 @@
+<fieldset {% if fieldset.css_id %}id="{{ fieldset.css_id }}"{% endif %}
+    {% if fieldset.css_class or form_style %}class="{{ fieldset.css_class }} {{ form_style }}"{% endif %}
+    {{ fieldset.flat_attrs }}>
+    <div class="headers">
+        {% if legend %}<legend>{{ legend|safe }}</legend>{% endif %}
+        <div>
+            <span class="header"><span class="header-label">Never</span>0</span>
+            <span class="header">1</span>
+            <span class="header">2</span>
+            <span class="header">3</span>
+            <span class="header">4</span>
+            <span class="header"><span class="header-label">Always</span>5</span>
+        </div>
+    </div>
+    {{ fields|safe }}
+</fieldset>
