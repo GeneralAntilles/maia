@@ -10,8 +10,6 @@ async function updateScoreAsync(score) {
         if (values.length == 0) {
             category_score = "-";
         } else {
-            var question_count = document.querySelectorAll(
-                "label." + category).length;
             for (var k = 0; k < values.length; k++) {
                 var question_score = parseInt(values[k].value);
                 category_score += question_score;
