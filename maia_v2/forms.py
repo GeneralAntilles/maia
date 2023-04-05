@@ -1,7 +1,24 @@
+import textwrap
 from django import forms
 
-from .models import Question
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Div, HTML, Fieldset, Layout, Submit
 
+from .models import Question, QuestionCategory
+
+
+def get_questionnaire_form(questionnaire):
+    """
+    Dynamically returns the correct questionnaire form for the given questionnaire.
+
+    Args:
+        questionnaire (str): The internal name of the questionnaire.
+
+    Returns:
+        ModelForm subclass: The questionnaire form.
+    """
+    if questionnaire == 'maia_v2':
+        return MAIAForm
 
 class MAIAForm(forms.ModelForm):
     """
@@ -11,37 +28,44 @@ class MAIAForm(forms.ModelForm):
     """
     class Meta:
         model = Question
-        fields = ['id', 'text', 'category', 'reverse_score']
+        fields = []
 
-    template_name = 'maia_v2/questionnaire.html'
     radio_choices = {
         False: ((0, ''), (1, ''), (2, ''), (3, ''), (4, ''), (5, '')),
         True: ((5, ''), (4, ''), (3, ''), (2, ''), (1, ''), (0, ''))
     }
 
-    id = forms.IntegerField(widget=forms.HiddenInput())
-    text = forms.CharField(widget=forms.TextInput(attrs={'readonly': True}))
-    reverse_score = forms.BooleanField(widget=forms.HiddenInput())
-
-    score = forms.IntegerField(
-        label="",
-        min_value=0,
-        max_value=5,
-        required=True,
-        widget=forms.RadioSelect(),
-    )
+    for question in Question.objects.all():
+        locals()[str(question.id)] = forms.IntegerField(
+            label=f'{question.id}. {question.text}',
+            min_value=0, max_value=5,
+            required=question.required,
+            widget=forms.RadioSelect(
+                choices=radio_choices[question.reverse_score]),
+        )
 
     def __init__(self, *args, **kwargs):
-        super(MAIAForm, self).__init__(*args, **kwargs)
-        self.fields['score'].widget.choices = self.radio_choices[
-            self.instance.reverse_score]
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
 
+        self.helper.form_id = 'maia-v2'
+        self.helper.form_method = 'post'
+        self.helper.form_action = 'submit_questionnaire'
+        self.helper.wrapper_class = 'form-group'
 
-    # for question in Question.objects.all():
-    #     locals()[question.id] = forms.IntegerField(
-    #         label=question.text,
-    #         min_value=0, max_value=5,
-    #         required=True,
-    #         widget=forms.RadioSelect(
-    #             choices=radio_choices[question.reverse_score]),
-    #     )
+        self.helper.layout = Layout()
+
+        questionnaire_layout = Layout()
+        for category in QuestionCategory.objects.all():
+            category_layout = Layout(Fieldset(
+                category.name,
+                template='maia_v2/custom_fieldset.html',
+                css_class=category.internal_name,
+            ))
+            for question in category.question_set.all():
+                category_layout[0].append(str(question.id))
+            questionnaire_layout.append(category_layout)
+
+        self.helper.layout.append(questionnaire_layout)
+
+        self.helper.add_input(Submit('submit', 'Submit'))
