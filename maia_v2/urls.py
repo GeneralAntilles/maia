@@ -9,4 +9,9 @@ urlpatterns = [
         views.QuestionnaireFormView.as_view(),
         name='questionnaire',
     ),
+    path(
+        'questionnaire/<str:questionnaire>/submit/',
+        views.QuestionnaireFormView.as_view(),
+        name='questionnaire-submit',
+    ),
 ]
