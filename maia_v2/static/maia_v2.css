@@ -31,10 +31,6 @@
         background-color: #2f353e;
     }
 }
-.form-break {
-    flex-basis: 100%;
-    height: 0;
-}
 legend {
     font-weight: bold;
 }
@@ -119,9 +115,6 @@ fieldset {
         display: flex;
         flex-wrap: nowrap;
         padding: 0 0 0 0.5rem;
-    }
-    .form-break {
-        display: none;
     }
     .form-group > label {
         flex: 0 8 65%;
