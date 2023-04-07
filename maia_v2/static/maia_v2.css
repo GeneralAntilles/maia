@@ -128,3 +128,8 @@ fieldset {
         padding: 0.2rem;
     }
 }
+
+/* Cripsy form styling */
+.asteriskField {
+    display: none;
+}
