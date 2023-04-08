@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import (
     Questionnaire, QuestionCategory, Question,
-    User,
+    Respondant,
     QuestionnaireResponse, QuestionResponse,
 )
 
@@ -27,6 +27,6 @@ class QuestionnaireAdmin(admin.ModelAdmin):
 admin.site.register(QuestionCategory, QuestionCategoryAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Questionnaire, QuestionnaireAdmin)
-admin.site.register(User)
+admin.site.register(Respondant)
 admin.site.register(QuestionnaireResponse)
 admin.site.register(QuestionResponse)
