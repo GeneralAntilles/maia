@@ -12,7 +12,7 @@ async function updateScoreAsync(score) {
             category_score = "-";
         } else {
             for (var k = 0; k < values.length; k++) {
-                var question_score = parseInt(values[k].value);
+                var question_score = parseFloat(values[k].value);
                 category_score += question_score;
             }
             category_score = (category_score / values.length).toFixed(2);
@@ -24,7 +24,7 @@ async function updateScoreAsync(score) {
             score.style = null;
             resolve();
         } else {
-            var score_value_int = parseInt(score.innerHTML);
+            var score_value_int = parseFloat(score.innerHTML);
             // 0 to 5 scale
             updateScoreColor(score);
             resolve();
@@ -38,7 +38,7 @@ async function updateScoreAsync(score) {
             if (score_value == "-") {
                 continue;
             }
-            total_score_value += parseInt(score_value);
+            total_score_value += parseFloat(score_value);
             total_score_count += 1;
         }
         if (total_score_count == 0) {
@@ -76,7 +76,7 @@ window.addEventListener("load", function() {
 });
 
 function updateScoreColor(ele) {
-    var score = parseInt(ele.innerHTML);
+    var score = parseFloat(ele.innerHTML);
     if (score >= 0 && score <= 1) {
         ele.style.color = "#ff0000";
     } else if (score >= 1 && score <= 2) {
@@ -103,3 +103,19 @@ function updateTheme() {
 
   // Update theme when the preferred scheme changes
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
+
+// Select random radio button for each question
+function randomize() {
+    var radios = document.querySelectorAll("input[type=radio]");
+    for (var i = 0; i < radios.length; i++) {
+        var radio = radios[i];
+        var random = Math.floor(Math.random() * radio.parentNode.children.length);
+        radio.parentNode.children[random].checked = true;
+    }
+    updateScores();
+}
+
+document.getElementById("randomize").addEventListener("click", function () {
+    console.log("randomize");
+    randomize();
+});
