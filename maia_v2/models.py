@@ -82,6 +82,22 @@ class Respondant(models.Model):
     fingerprint = models.CharField(max_length=32, unique=True, null=False,
                                    blank=False)
 
+    date = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+
+    @property
+    def last_activity(self):
+        """
+        Return the last activity time for the user.
+        """
+        return self.questionnaireresponse_set.latest('date').date
+
+    @property
+    def questionnaire_responses(self):
+        """
+        Return the number of questionnaire responses for the user.
+        """
+        return self.questionnaireresponse_set.all().count()
+
     def __str__(self):
         return f'{self.id} ({self.fingerprint})'
 
