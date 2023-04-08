@@ -77,13 +77,9 @@ class Respondant(models.Model):
     IP address and browser fingerprint, but won't retain any personally
     identifiable information or IP addresses.
     """
-    # We use a UUID to identify users, but we don't want to expose this to
-    # users, so we use a random string instead
-    id = models.CharField(max_length=100, primary_key=True, unique=True,
-                          null=False, blank=False)
-    # We store a hash of the user's IP address and browser fingerprint, but
-    # we don't store the IP address or fingerprint itself
-    fingerprint = models.CharField(max_length=254, unique=True, null=False,
+    # We store an MD5 hash of the user's IP address and browser fingerprint,
+    # but we don't store the IP address or fingerprint itself
+    fingerprint = models.CharField(max_length=32, unique=True, null=False,
                                    blank=False)
 
     def __str__(self):
