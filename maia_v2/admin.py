@@ -42,6 +42,12 @@ class QuestionnaireResponseAdmin(admin.ModelAdmin):
 
     def questionresponse_list(self, instance):
         question_responses = instance.questionresponse_set.all()
+        return mark_safe('<table><thead><tr><th>Question</th><th>Answer</th></tr></thead><tbody>{}</tbody></table>'.format(
+            '\n'.join('<tr><td>{}</td><td>{}</td></tr>'.format(
+                question_response.question.text, question_response.answer
+            ) for question_response in question_responses
+        )))
+
     def category_scores(self, instance):
         score_dict = instance.score_dict
         return mark_safe('<table><thead><tr><th>Category</th><th>Score</th></tr></thead><tbody>{}</tbody></table>'.format(
