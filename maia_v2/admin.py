@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .models import (
     Questionnaire, QuestionCategory, Question,
@@ -24,9 +25,26 @@ class QuestionnaireAdmin(admin.ModelAdmin):
     search_fields = ('name', 'internal_name')
 
 
+class QuestionnaireResponseAdmin(admin.ModelAdmin):
+    list_display = ('id', 'questionnaire', 'respondant', 'date')
+    search_fields = ('questionnaire', 'respondant')
+    list_filter = ('questionnaire', 'respondant')
+    readonly_fields = ('date', 'score', 'questionresponse_list')
+    fieldsets = (
+        (None, {
+            'fields': ('questionnaire', 'respondant', 'date', 'score', 'questionresponse_list'),
+        }),
+    )
+
+    def questionresponse_list(self, instance):
+        question_responses = instance.questionresponse_set.all()
+        return mark_safe('<p>{}</p>'.format(
+            '<br>'.join(str(qr) for qr in question_responses)
+        ))
+
 admin.site.register(QuestionCategory, QuestionCategoryAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Questionnaire, QuestionnaireAdmin)
 admin.site.register(Respondant)
-admin.site.register(QuestionnaireResponse)
+admin.site.register(QuestionnaireResponse, QuestionnaireResponseAdmin)
 admin.site.register(QuestionResponse)
