@@ -12,12 +12,16 @@ class QuestionCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'internal_name', 'questionnaire', 'questions')
     search_fields = ('name', 'internal_name')
     list_filter = ('questionnaire',)
+    sortable_by = ('name', 'internal_name', 'questionnaire', 'questions')
+    ordering = ('name',)
 
 
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('id', 'text', 'category', 'questionnaire', 'reverse_score')
     search_fields = ('text',)
     list_filter = ('questionnaire', 'category')
+    sortable_by = ('id', 'text', 'category', 'questionnaire', 'reverse_score')
+    ordering = ('id',)
 
 
 class QuestionnaireAdmin(admin.ModelAdmin):
