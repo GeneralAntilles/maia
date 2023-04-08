@@ -43,6 +43,17 @@ class QuestionnaireResponseAdmin(admin.ModelAdmin):
         ))
 
 
+class QuestionResponseAdmin(admin.ModelAdmin):
+    list_display = ('id', 'questionnaire', 'question', 'answer')
+    search_fields = ('questionnaire_response', 'question')
+    list_filter = ('questionnaire_response', 'question')
+    sortable_by = ('id', 'questionnaire_response', 'question', 'answer')
+    ordering = ('id',)
+
+    def questionnaire(self, obj):
+        return obj.question.questionnaire
+
+
 class RespondantAdmin(admin.ModelAdmin):
     list_display = ('id', 'fingerprint', 'date', 'last_activity', 'questionnaire_responses')
     search_fields = ('fingerprint',)
@@ -56,4 +67,4 @@ admin.site.register(Question, QuestionAdmin)
 admin.site.register(Questionnaire, QuestionnaireAdmin)
 admin.site.register(Respondant, RespondantAdmin)
 admin.site.register(QuestionnaireResponse, QuestionnaireResponseAdmin)
-admin.site.register(QuestionResponse)
+admin.site.register(QuestionResponse, QuestionResponseAdmin)
