@@ -19,7 +19,7 @@ class Questionnaire(models.Model):
         return self.question_set.count()
 
     def __str__(self):
-        return self.internal_name
+        return str(self.internal_name)
 
 
 class QuestionCategory(models.Model):
@@ -64,8 +64,10 @@ class Question(models.Model):
 
 
     def __str__(self):
-        return f'{self.text} ({self.category.name})'
+        if self.category is None:
+            return f'{self.id} {self.text}'
 
+        return f'{self.id} {self.text} ({self.category.name})'
 
 class User(models.Model):
     """
@@ -140,4 +142,4 @@ class QuestionResponse(models.Model):
     answer = models.IntegerField(null=False, blank=False)
 
     def __str__(self):
-        return f'{self.question.text} ({self.question.id})'
+        return f'{self.question.id}. {self.question.text}: {self.answer}'
