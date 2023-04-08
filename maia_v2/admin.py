@@ -9,7 +9,7 @@ from .models import (
 
 
 class QuestionCategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'internal_name', 'questionnaire', 'questions')
+    list_display = ('name', 'internal_name', 'questionnaire', 'questions')
     search_fields = ('name', 'internal_name')
     list_filter = ('questionnaire',)
 
@@ -26,7 +26,7 @@ class QuestionnaireAdmin(admin.ModelAdmin):
 
 
 class QuestionnaireResponseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'questionnaire', 'respondant', 'date')
+    list_display = ('id', 'questionnaire', 'respondant', 'date', 'score')
     search_fields = ('questionnaire', 'respondant')
     list_filter = ('questionnaire', 'respondant')
     readonly_fields = ('date', 'score', 'questionresponse_list')
