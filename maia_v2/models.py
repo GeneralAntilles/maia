@@ -125,10 +125,7 @@ class QuestionnaireResponse(models.Model):
             category_score = 0
             for question_response in self.questionresponse_set.filter(
                     question__category=category):
-                if question_response.question.reverse_score:
-                    category_score += 4 - question_response.answer
-                else:
-                    category_score += question_response.answer
+                category_score += question_response.answer
 
             category_score = category_score / category.questions
             score += category_score
