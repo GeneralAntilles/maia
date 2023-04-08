@@ -70,7 +70,7 @@ class Question(models.Model):
         return f'{self.id} {self.text} ({self.category.name})'
 
 
-class Respondant(models.Model):
+class Respondent(models.Model):
     """
     Model for site users. Users are created when they take a test and are
     associated with the test results. We try to fingerprint each user by their
@@ -110,7 +110,7 @@ class QuestionnaireResponse(models.Model):
     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE,
                                       null=False, blank=False)
     # User is a foreign key to the User model
-    respondant = models.ForeignKey(Respondant, on_delete=models.CASCADE,
+    respondent = models.ForeignKey(Respondent, on_delete=models.CASCADE,
                                    null=False, blank=False)
     # We store the date and time the questionnaire was completed
     date = models.DateTimeField(auto_now_add=True, null=False, blank=False)
@@ -151,7 +151,7 @@ class QuestionnaireResponse(models.Model):
         return score
 
     def __str__(self):
-        return f'{self.questionnaire.name} ({self.respondant.id})'
+        return f'{self.questionnaire.name} ({self.respondent.id})'
 
 
 class QuestionResponse(models.Model):

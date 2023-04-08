@@ -3,7 +3,7 @@ from django.utils.safestring import mark_safe
 
 from .models import (
     Questionnaire, QuestionCategory, Question,
-    Respondant,
+    Respondent,
     QuestionnaireResponse, QuestionResponse,
 )
 
@@ -43,13 +43,13 @@ class QuestionnaireAdmin(admin.ModelAdmin):
         )))
 
 class QuestionnaireResponseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'questionnaire', 'respondant', 'date', 'score')
-    search_fields = ('questionnaire', 'respondant')
-    list_filter = ('questionnaire', 'respondant')
+    list_display = ('id', 'questionnaire', 'respondent', 'date', 'score')
+    search_fields = ('questionnaire', 'respondent')
+    list_filter = ('questionnaire', 'respondent')
     readonly_fields = ('date', 'score', 'category_scores', 'questionresponse_list')
     fieldsets = (
         (None, {
-            'fields': ('questionnaire', 'respondant', 'date', 'score', 'category_scores', 'questionresponse_list'),
+            'fields': ('questionnaire', 'respondent', 'date', 'score', 'category_scores', 'questionresponse_list'),
         }),
     )
 
@@ -81,7 +81,7 @@ class QuestionResponseAdmin(admin.ModelAdmin):
         return obj.question.questionnaire
 
 
-class RespondantAdmin(admin.ModelAdmin):
+class RespondentAdmin(admin.ModelAdmin):
     list_display = ('id', 'fingerprint', 'date', 'last_activity', 'questionnaire_responses')
     search_fields = ('fingerprint',)
     readonly_fields = ('last_activity', 'date')
@@ -92,6 +92,6 @@ class RespondantAdmin(admin.ModelAdmin):
 admin.site.register(QuestionCategory, QuestionCategoryAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Questionnaire, QuestionnaireAdmin)
-admin.site.register(Respondant, RespondantAdmin)
+admin.site.register(Respondent, RespondentAdmin)
 admin.site.register(QuestionnaireResponse, QuestionnaireResponseAdmin)
 admin.site.register(QuestionResponse, QuestionResponseAdmin)

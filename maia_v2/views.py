@@ -8,7 +8,7 @@ from django.views.generic import View
 from .forms import get_questionnaire_form
 from .models import (Question, QuestionCategory, QuestionResponse,
                      Questionnaire, QuestionnaireResponse,
-                     Respondant)
+                     Respondent)
 
 
 def index(request):
@@ -60,16 +60,16 @@ class QuestionnaireFormView(View):
                 fingerprint_raw.encode('utf-8')).hexdigest()
             # Get a user or create one
             try:
-                respondant = Respondant.objects.get(fingerprint=request.fingerprint)
-            except Respondant.DoesNotExist:
-                respondant = Respondant(
+                respondent = Respondent.objects.get(fingerprint=request.fingerprint)
+            except Respondent.DoesNotExist:
+                respondent = Respondent(
                     fingerprint=request.fingerprint,
                 )
 
             # The object for the form submission
             questionnaire_response = QuestionnaireResponse(
                 questionnaire=self.questionnaire,
-                respondant=respondant,
+                respondent=respondent,
             )
 
             # Collecting the question responses
@@ -83,7 +83,7 @@ class QuestionnaireFormView(View):
                 )
 
             # Saving the questionnaire response and question responses
-            respondant.save()
+            respondent.save()
             questionnaire_response.save()
             for question_response in question_responses.values():
                 question_response.save()
