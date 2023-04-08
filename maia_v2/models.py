@@ -100,6 +100,27 @@ class QuestionnaireResponse(models.Model):
     # We store the date and time the questionnaire was completed
     date = models.DateTimeField(auto_now_add=True, null=False, blank=False)
 
+    @property
+    def score(self):
+        """
+        Calculate the score for the questionnaire response.
+        """
+        score = 0
+        for category in self.questionnaire.questioncategory_set.all():
+            category_score = 0
+            for question_response in self.questionresponse_set.filter(
+                    question__category=category):
+                if question_response.question.reverse_score:
+                    category_score += 4 - question_response.answer
+                else:
+                    category_score += question_response.answer
+
+            category_score = category_score / category.questions
+            score += category_score
+
+        score = round(score / self.questionnaire.questioncategory_set.count(), 2)
+        return score
+
     def __str__(self):
         return f'{self.questionnaire.name} ({self.user.id})'
 
