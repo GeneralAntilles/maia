@@ -33,18 +33,22 @@ class QuestionnaireResponseAdmin(admin.ModelAdmin):
     list_display = ('id', 'questionnaire', 'respondant', 'date', 'score')
     search_fields = ('questionnaire', 'respondant')
     list_filter = ('questionnaire', 'respondant')
-    readonly_fields = ('date', 'score', 'questionresponse_list')
+    readonly_fields = ('date', 'score', 'category_scores', 'questionresponse_list')
     fieldsets = (
         (None, {
-            'fields': ('questionnaire', 'respondant', 'date', 'score', 'questionresponse_list'),
+            'fields': ('questionnaire', 'respondant', 'date', 'score', 'category_scores', 'questionresponse_list'),
         }),
     )
 
     def questionresponse_list(self, instance):
         question_responses = instance.questionresponse_set.all()
-        return mark_safe('<p>{}</p>'.format(
-            '<br>'.join(str(qr) for qr in question_responses)
-        ))
+    def category_scores(self, instance):
+        score_dict = instance.score_dict
+        return mark_safe('<table><thead><tr><th>Category</th><th>Score</th></tr></thead><tbody>{}</tbody></table>'.format(
+            '\n'.join('<tr><td>{}</td><td>{:.02f}</td></tr>'.format(
+                category, score
+            ) for category, score in score_dict.items()
+        )))
 
 
 class QuestionResponseAdmin(admin.ModelAdmin):

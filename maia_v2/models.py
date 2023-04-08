@@ -133,6 +133,23 @@ class QuestionnaireResponse(models.Model):
         score = round(score / self.questionnaire.questioncategory_set.count(), 2)
         return score
 
+    @property
+    def score_dict(self):
+        """
+        Calculate the score for the questionnaire response.
+        """
+        score = {}
+        for category in self.questionnaire.questioncategory_set.all():
+            category_score = 0
+            for question_response in self.questionresponse_set.filter(
+                    question__category=category):
+                category_score += question_response.answer
+
+            category_score = category_score / category.questions
+            score[category.name] = category_score
+
+        return score
+
     def __str__(self):
         return f'{self.questionnaire.name} ({self.respondant.id})'
 
