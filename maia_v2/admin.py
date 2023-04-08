@@ -42,9 +42,18 @@ class QuestionnaireResponseAdmin(admin.ModelAdmin):
             '<br>'.join(str(qr) for qr in question_responses)
         ))
 
+
+class RespondantAdmin(admin.ModelAdmin):
+    list_display = ('id', 'fingerprint', 'date', 'last_activity', 'questionnaire_responses')
+    search_fields = ('fingerprint',)
+    readonly_fields = ('last_activity', 'date')
+    sortable_by = ('id', 'fingerprint', 'last_activity')
+    ordering = ('id',)
+
+
 admin.site.register(QuestionCategory, QuestionCategoryAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Questionnaire, QuestionnaireAdmin)
-admin.site.register(Respondant)
+admin.site.register(Respondant, RespondantAdmin)
 admin.site.register(QuestionnaireResponse, QuestionnaireResponseAdmin)
 admin.site.register(QuestionResponse)
