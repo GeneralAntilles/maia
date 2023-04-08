@@ -25,9 +25,22 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class QuestionnaireAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'internal_name', 'description', 'questions')
+    list_display = ('id', 'name', 'internal_name', 'description', 'question_list')
     search_fields = ('name', 'internal_name')
+    readonly_fields = ('question_list',)
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'internal_name', 'description', 'instructions', 'question_list'),
+        }),
+    )
 
+    def question_list(self, instance):
+        questions = instance.question_set.all()
+        return mark_safe('<table><thead><tr><th>Question</th><th>Answer</th></tr></thead><tbody>{}</tbody></table>'.format(
+            '\n'.join('<tr><td>{}</td><td>{}</td></tr>'.format(
+                question.id, question.text
+            ) for question in questions
+        )))
 
 class QuestionnaireResponseAdmin(admin.ModelAdmin):
     list_display = ('id', 'questionnaire', 'respondant', 'date', 'score')
