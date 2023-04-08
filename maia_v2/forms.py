@@ -4,7 +4,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Div, HTML, Fieldset, Layout, Submit
 
-from .models import Question, QuestionCategory
+from .models import Question, QuestionCategory, QuestionnaireResponse
 
 
 def get_questionnaire_form(questionnaire):
@@ -27,7 +27,7 @@ class MAIAForm(forms.ModelForm):
     This form is dynamically generated from the questions in the database.
     """
     class Meta:
-        model = Question
+        model = QuestionnaireResponse
         fields = []
 
     radio_choices = {
@@ -50,7 +50,8 @@ class MAIAForm(forms.ModelForm):
 
         self.helper.form_id = 'maia-v2'
         self.helper.form_method = 'post'
-        self.helper.form_action = 'submit_questionnaire'
+        self.helper.form_action = (
+            f'/questionnaire/maia_v2/submit/')
         self.helper.wrapper_class = 'form-group'
 
         self.helper.layout = Layout()
