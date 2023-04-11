@@ -25,14 +25,14 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class QuestionnaireAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'internal_name', 'description',
-                    'question_list')
+    list_display = ('id', 'name', 'internal_name', 'description', 'scale',
+                    'scale_max', 'scale_min', 'question_list')
     search_fields = ('name', 'internal_name')
     readonly_fields = ('question_list',)
     fieldsets = (
         (None, {
             'fields': ('name', 'internal_name', 'description', 'instructions',
-                       'scale', 'score_max', 'score_min', 'question_list'),
+                       'scale', 'scale_max', 'scale_min', 'question_list'),
         }),
     )
 
