@@ -25,12 +25,14 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class QuestionnaireAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'internal_name', 'description', 'question_list')
+    list_display = ('id', 'name', 'internal_name', 'description',
+                    'question_list')
     search_fields = ('name', 'internal_name')
     readonly_fields = ('question_list',)
     fieldsets = (
         (None, {
-            'fields': ('name', 'internal_name', 'description', 'instructions', 'question_list'),
+            'fields': ('name', 'internal_name', 'description', 'instructions',
+                       'question_list'),
         }),
     )
 
@@ -49,7 +51,8 @@ class QuestionnaireResponseAdmin(admin.ModelAdmin):
     readonly_fields = ('date', 'score', 'category_scores', 'questionresponse_list')
     fieldsets = (
         (None, {
-            'fields': ('questionnaire', 'respondent', 'date', 'score', 'category_scores', 'questionresponse_list'),
+            'fields': ('questionnaire', 'respondent', 'date', 'score',
+                       'category_scores', 'questionresponse_list'),
         }),
     )
 
@@ -82,7 +85,8 @@ class QuestionResponseAdmin(admin.ModelAdmin):
 
 
 class RespondentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'fingerprint', 'date', 'last_activity', 'questionnaire_responses')
+    list_display = ('id', 'fingerprint', 'date', 'last_activity',
+                    'questionnaire_responses')
     search_fields = ('fingerprint',)
     readonly_fields = ('last_activity', 'date')
     sortable_by = ('id', 'fingerprint', 'last_activity')
