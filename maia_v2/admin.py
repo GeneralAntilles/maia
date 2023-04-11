@@ -32,7 +32,7 @@ class QuestionnaireAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': ('name', 'internal_name', 'description', 'instructions',
-                       'question_list'),
+                       'scale', 'score_max', 'score_min', 'question_list'),
         }),
     )
 

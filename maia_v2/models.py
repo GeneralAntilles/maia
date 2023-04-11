@@ -13,6 +13,9 @@ class Questionnaire(models.Model):
     published = models.BooleanField(default=False)
     description = models.TextField(null=True, blank=True)
     instructions = models.TextField(null=True, blank=True)
+    scale = models.CharField(max_length=100, null=True, blank=True)
+    scale_min = models.IntegerField(null=True, blank=True)
+    scale_max = models.IntegerField(null=True, blank=True)
 
     @property
     def questions(self):
@@ -151,7 +154,7 @@ class QuestionnaireResponse(models.Model):
         return score
 
     def __str__(self):
-        return f'{self.questionnaire.name} ({self.respondent.id})'
+        return f'{self.questionnaire.name} ({self.respondent.id}) {self.date.date()} - {self.score}'
 
 
 class QuestionResponse(models.Model):
