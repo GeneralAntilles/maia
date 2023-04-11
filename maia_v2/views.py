@@ -96,3 +96,27 @@ class QuestionnaireFormView(View):
         self.questionnaire = Questionnaire.objects.get(internal_name=questionnaire)
         self.questions = Question.objects.filter(questionnaire=self.questionnaire)
         self.categories = QuestionCategory.objects.filter(questionnaire=self.questionnaire)
+
+
+class QuestionnaireResultsView(View):
+    def get(self, request, questionnaire, respondent):
+        questionnaire = Questionnaire.objects.get(internal_name=questionnaire)
+        respondent = Respondent.objects.get(fingerprint=respondent)
+        questionnaire_response = QuestionnaireResponse.objects.filter(
+            respondent=respondent).latest('date')
+
+        question_responses = questionnaire_response.questionresponse_set.all()
+
+        return render(
+            request,
+            'maia_v2/results.html',
+            {
+                'questionnaire': questionnaire,
+                'respondent': respondent,
+                'question_responses': question_responses,
+                'results': questionnaire_response,
+                'scores': json.dumps(questionnaire_response.score_dict),
+                'total_score': questionnaire_response.score,
+            },
+        )
+

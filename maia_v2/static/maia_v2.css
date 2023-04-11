@@ -127,6 +127,13 @@ fieldset {
     display: none;
 }
 
+/* Charts */
+.chart-container {
+    padding: 0 1rem 0 0;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
 /* FIXME */
 .form-label {
     margin-bottom: 0;

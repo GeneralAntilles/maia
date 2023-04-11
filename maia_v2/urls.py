@@ -14,4 +14,9 @@ urlpatterns = [
         views.QuestionnaireFormView.as_view(),
         name='questionnaire-submit',
     ),
+    path(
+        'questionnaire/<str:questionnaire>/results/<str:respondent>/',
+        views.QuestionnaireResultsView.as_view(),
+        name='questionnaire-results',
+    ),
 ]
