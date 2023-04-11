@@ -1,9 +1,13 @@
 import hashlib
+import json
 import uuid
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import View
+from rest_framework import permissions
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .forms import get_questionnaire_form
 from .models import (Question, QuestionCategory, QuestionResponse,
@@ -88,7 +92,7 @@ class QuestionnaireFormView(View):
             for question_response in question_responses.values():
                 question_response.save()
 
-            return HttpResponseRedirect(f'/questionnaire/{questionnaire}/')
+            return HttpResponseRedirect(f'/questionnaire/{questionnaire}/results/{respondent.fingerprint}/')
         else:
             return render(request, f'maia_v2/{questionnaire}.html', response)
 
@@ -120,3 +124,16 @@ class QuestionnaireResultsView(View):
             },
         )
 
+
+class APIQuestionnaireResultsView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, questionnaire, respondent):
+        questionnaire = Questionnaire.objects.get(internal_name=questionnaire)
+        respondent = Respondent.objects.get(fingerprint=respondent)
+        questionnaire_response = QuestionnaireResponse.objects.filter(
+            respondent=respondent).latest('date')
+        scores = []
+        for key, value in questionnaire_response.score_dict.items():
+            scores.append({'name': key, 'Score': value})
+        return Response(scores)
