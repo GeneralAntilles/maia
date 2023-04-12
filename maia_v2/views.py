@@ -2,6 +2,8 @@ import hashlib
 import json
 import uuid
 
+import numpy as np
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import View
@@ -125,8 +127,19 @@ class QuestionnaireResultsView(View):
                 'scores': json.dumps(questionnaire_response.score_dict),
                 'total_score': questionnaire_response.score,
                 'score_percentile': percentile,
+                'bucket': self.histogram_bucket(questionnaire_response.score, questionnaire),
             },
         )
+
+    def histogram_bucket(self, data, questionnaire, bin_step=1):
+        """
+        Determine the value of the histogram bin the given data point falls into.
+        """
+        min_score = questionnaire.scale_min
+        max_score = questionnaire.scale_max
+        bin_count = int((max_score - min_score) / bin_step)
+        bins = np.linspace(min_score, max_score, bin_count)
+        return np.digitize(data, bins)
 
 
 class APIQuestionnaireResultsView(APIView):
