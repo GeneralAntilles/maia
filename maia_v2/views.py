@@ -134,6 +134,7 @@ class QuestionnaireResultsView(View):
     def get(self, request, questionnaire, respondent):
         questionnaire = Questionnaire.objects.get(internal_name=questionnaire)
         respondent = Respondent.objects.get(fingerprint=respondent)
+        respondents = QuestionnaireResponse.objects.filter(questionnaire=questionnaire).count()
         questionnaire_response = QuestionnaireResponse.objects.filter(
             respondent=respondent).latest('date')
 
@@ -141,7 +142,19 @@ class QuestionnaireResultsView(View):
 
         ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
         percentile = ordinal(int(questionnaire_response.percentile))
-
+        # Calibrate the number of bin steps based on the total number of
+        # respondents. No point showing a lot of histogram bins if there are
+        # only a few respondents.
+        if respondents > 20:
+            bin_step = 5
+        elif respondents > 50:
+            bin_step = 2
+        elif respondents > 100:
+            bin_step = 1
+        else:
+            bin_step = 10
+        bucket = self.histogram_bucket(questionnaire_response.score,
+                                       questionnaire, bin_step=bin_step)
         return render(
             request,
             'maia_v2/results.html',
@@ -153,7 +166,7 @@ class QuestionnaireResultsView(View):
                 'scores': json.dumps(questionnaire_response.score_dict),
                 'total_score': questionnaire_response.score,
                 'score_percentile': percentile,
-                'bucket': self.histogram_bucket(questionnaire_response.score, questionnaire),
+                'bucket': bucket,
                 'current_site': self.current_site,
             },
         )
@@ -166,7 +179,7 @@ class QuestionnaireResultsView(View):
             range(questionnaire.scale_min * 10,
                   questionnaire.scale_max * 10 + 1, bin_step)
         ) / 10
-        return np.digitize(data, bins) / 10
+        return bins[np.digitize(data, bins) - 1]
 
 
 class APIQuestionnaireResultsView(APIView):
@@ -222,7 +235,19 @@ class APIQuestionnaireStatsView(APIView):
 
         scores = [response.score for response in responses]
 
-        histogram_data = self.histogram_data(scores, questionnaire)
+        # Calibrate the number of bin steps based on the total number of
+        # respondents. No point showing a lot of histogram bins if there are
+        # only a few respondents.
+        if responses.count() > 20:
+            bin_step = 5
+        elif responses.count() > 50:
+            bin_step = 2
+        elif responses.count() > 100:
+            bin_step = 1
+        else:
+            bin_step = 10
+        histogram_data = self.histogram_data(scores, questionnaire,
+                                             bin_step=bin_step)
 
         return Response(histogram_data)
 
