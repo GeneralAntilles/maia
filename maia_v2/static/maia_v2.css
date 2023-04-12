@@ -197,6 +197,9 @@ fieldset {
 #result-hist-chart {
     max-width: 400px;
 }
+#result-bar-chart {
+    max-height: 200px;
+}
 
 /* FIXME */
 .form-label {
