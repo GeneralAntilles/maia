@@ -6,9 +6,9 @@ var histogram_chart = bb.generate({
         mimeType: "json",
         keys: { x: "data1", value: ["Respondents"] },
         type: "bar",
-        // Color the bars red if the user's score is in the same bin
+        // Color the bar red if the user's score is in the same bin
         color: function (color, d) {
-            if (d.value == bucket) { return "red"; }
+            if (d.x == bucket) { return "red"; }
             return color;
         },
     },

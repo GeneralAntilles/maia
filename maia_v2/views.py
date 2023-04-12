@@ -151,11 +151,11 @@ class QuestionnaireResultsView(View):
         """
         Determine the value of the histogram bin the given data point falls into.
         """
-        min_score = questionnaire.scale_min
-        max_score = questionnaire.scale_max
-        bin_count = int((max_score - min_score) / bin_step)
-        bins = np.linspace(min_score, max_score, bin_count)
-        return np.digitize(data, bins)
+        bins = np.array(
+            range(questionnaire.scale_min * 10,
+                  questionnaire.scale_max * 10 + 1, bin_step)
+        ) / 10
+        return np.digitize(data, bins) / 10
 
 
 class APIQuestionnaireResultsView(APIView):
