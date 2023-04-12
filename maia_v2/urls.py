@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('about/', views.AboutView.as_view(), name='about'),
     path(
         'questionnaire/<str:questionnaire>/',
         views.QuestionnaireFormView.as_view(),

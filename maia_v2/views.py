@@ -31,6 +31,18 @@ def index(request):
     )
 
 
+class AboutView(View):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.current_site = Site.objects.get_current()
+
+    def get(self, request):
+        return render(
+            request, 'maia_v2/about.html',
+            {'current_site': self.current_site},
+        )
+
+
 class QuestionnaireFormView(View):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
