@@ -232,7 +232,7 @@ class APIQuestionnaireStatsView(APIView):
             range(questionnaire.scale_min * 10,
                   questionnaire.scale_max * 10 + 1, bin_step)
         ) / 10
-        x_axis: list[str, int] = []
+        x_axis: list = []
         for i in bins:
             x_axis.append(i)
         histogram_data = {'data1': x_axis}
