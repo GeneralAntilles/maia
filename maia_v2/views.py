@@ -151,7 +151,7 @@ class APIQuestionnaireStatsView(APIView):
         respondent = Respondent.objects.get(fingerprint=respondent)
         questionnaire_response = QuestionnaireResponse.objects.filter(
             respondent=respondent).latest('date')
-        responses = QuestionnaireResponse.objects.all()
+        responses = QuestionnaireResponse.objects.all().filter(questionnaire=questionnaire)
 
         scores = [response.score for response in responses]
 
