@@ -161,6 +161,7 @@ class QuestionnaireResultsView(View):
             {
                 'questionnaire': questionnaire,
                 'respondent': respondent,
+                'respondents': respondents,
                 'question_responses': question_responses,
                 'results': questionnaire_response,
                 'scores': json.dumps(questionnaire_response.score_dict),
