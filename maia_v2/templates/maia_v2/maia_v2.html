@@ -2,16 +2,10 @@
 {% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% block head_title %}{{ questionnaire.name }}{% endblock %}
-
-{% block js %}
-<script src="{% static 'questionnaire.js' %}"></script>
-{% endblock %}
+{% block head_title %}{{ questionnaire.display_name }}{% endblock %}
 
 {% block content %}
-<div class="container-lg">
-    <h1>{{ questionnaire.name }}</h1>
-    <p>Read the following statements and select the response that best describes your experience over the past two weeks.</p>
+    <h1>{{ questionnaire.display_name }}</h1>
     {% crispy form %}
     <div id="score">
         <ul>

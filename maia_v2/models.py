@@ -9,6 +9,8 @@ class Questionnaire(models.Model):
     """
     # Questionnaires have a presentation name and an internal name
     name = models.CharField(max_length=100, unique=True, null=False, blank=False)
+    # If short_name is empty use name instead
+    short_name = models.CharField(max_length=30, null=True, blank=True)
     internal_name = models.CharField(max_length=100, unique=True, null=False,
                                      blank=False)
     source = models.URLField(null=True, blank=True)
@@ -18,6 +20,10 @@ class Questionnaire(models.Model):
     scale = models.CharField(max_length=100, null=True, blank=True)
     scale_min = models.IntegerField(null=True, blank=True)
     scale_max = models.IntegerField(null=True, blank=True)
+
+    @property
+    def display_name(self):
+        return self.short_name or self.name
 
     @property
     def questions(self):
