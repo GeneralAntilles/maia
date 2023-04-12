@@ -68,5 +68,6 @@ class MAIAForm(forms.ModelForm):
             questionnaire_layout.append(category_layout)
 
         self.helper.layout.append(questionnaire_layout)
-
+        self.helper.layout.append(HTML(
+            '<p><i>Submit your questionnaire to see how your score compares!</i></p>'))
         self.helper.add_input(Submit('submit', 'Submit'))
