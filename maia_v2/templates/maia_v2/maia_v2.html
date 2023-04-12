@@ -7,13 +7,14 @@
 {% block content %}
     <h1>{{ questionnaire.display_name }}</h1>
     {% crispy form %}
-    <div id="score">
-        <ul>
+    <p class="total">Total score: <span id="total-score">-</span></p>
+    <div id="score" class="score-container">
         {% for category in categories %}
-            <li>{{ category.name }}: <span class="{{ category.internal_name }} score">-</span></li>
+        <div class="score-item">
+            <p class="category">{{ category.name }}</p>
+            <p class="{{ category.internal_name }} score">-</p>
+        </div>
         {% endfor %}
-        </ul>
-        <p>Total score: <span id="total-score">-</span></p>
     </div>
     <script src="{% static 'maia_v2.js' %}"></script>
 </div>
