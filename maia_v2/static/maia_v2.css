@@ -118,6 +118,12 @@ legend.categories {
 .hints {
     display: none;
 }
+@media (max-width: 768px) {
+    .form-check-input[type="radio"] {
+        scale: 1.4;
+        margin: 0.5rem 0;
+    }
+}
 @media (min-width: 768px) {
     .header {
         flex: 0 0.3 3rem;
