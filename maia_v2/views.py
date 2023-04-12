@@ -200,15 +200,14 @@ class APIQuestionnaireComparisonView(APIView):
         scores = []
         category_map = QuestionCategory.objects.filter(questionnaire=questionnaire).values('internal_name', 'name')
         category_map = {c['internal_name']: c['name'] for c in category_map}
-        # FIXME: This is hardcoded and should be generated from the database
         for category in category_map.keys():
-            scores.append({
-                'name': category_map[category],
-                'Museum visitors': comparison_data[0]['scores'][category],
-                'Social media': comparison_data[3]['scores'][category],
-                'Hospital post-treatment': comparison_data[2]['scores'][category],
-                'Hospital pre-treatment': comparison_data[1]['scores'][category],
-            })
+            category_dict = { 'name': category_map[category] }
+            # Generate the data from each comparison data source dynamically
+            # for each category
+            for comparison_data_source in comparison_data:
+                category_dict[comparison_data_source['name']] = (
+                    comparison_data_source['scores'][category])
+            scores.append(category_dict)
 
         return Response(scores)
 
