@@ -7,6 +7,8 @@
 {% block content %}
 <div class="container-lg" id="content">
     <h1>{{ questionnaire.display_name }}</h1>
+    <p>{{ questionnaire.description }}</p>
+    <p>{{ questionnaire.instructions }}</p>
     {% crispy form %}
     <p class="total">Total score: <span id="total-score">-</span></p>
     <div id="score" class="score-container">
