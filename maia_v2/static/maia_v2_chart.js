@@ -25,7 +25,7 @@ var bar_chart = bb.generate({
     data: {
         url: "./scores/?format=json",
         mimeType: "json",
-        keys: { x: "name", value: ["Score"] },
+        keys: { x: "name", value: ["You"] },
         type: "bar",
     },
     axis: {
@@ -39,7 +39,7 @@ var bar_chart = bb.generate({
         },
         y: { min: 0, max: max_score, padding: 0 }
     },
-    legend: { position: "bottom" },
+    legend: { position: "right", padding: 100 },
     bindto: "#result-bar-chart",
     oninit: function() {
         this.load({

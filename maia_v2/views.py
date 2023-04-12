@@ -152,7 +152,7 @@ class APIQuestionnaireResultsView(APIView):
             respondent=respondent).latest('date')
         scores = []
         for key, value in questionnaire_response.score_dict.items():
-            scores.append({'name': key, 'Score': value})
+            scores.append({'name': key, 'You': value})
         return Response(scores)
 
 
