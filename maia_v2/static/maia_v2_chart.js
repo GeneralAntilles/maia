@@ -45,10 +45,11 @@ var bar_chart = bb.generate({
         this.load({
             url: "./comparison/?format=json",
             mimeType: "json",
-            keys: { x: "name", value: ["Museum visitors", "Hospital pre-treatment", "Hospital post-treatment"] },
+            keys: { x: "name", value: ["Museum visitors", "Social media", "Hospital pre-treatment", "Hospital post-treatment"] },
             type: "bar",
             colors: {
                 "Museum visitors": "#e8b8ce",
+                "Social media": "#b8e8e6",
                 "Hospital pre-treatment": "#f0d4bb",
                 "Hospital post-treatment": "#acdcac"
             },
