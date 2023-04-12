@@ -1,3 +1,21 @@
+/* Navbar */
+.navbar {
+    background-color: #f5f5f5;
+    border-bottom: 3px solid #e5e5e5;
+    margin: 0 0 1rem 0;
+}
+.logo {
+    height: 54px;
+    margin: 0 0.5rem 0 0;
+    vertical-align: middle;
+}
+.navbar-brand span {
+    vertical-align: middle;
+}
+.navbar ul {
+    margin-left: auto;
+}
+
 .form-group {
     flex-direction: row;
     margin: 0 0 0.2rem 0;
