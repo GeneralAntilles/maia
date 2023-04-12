@@ -111,6 +111,9 @@ class QuestionnaireResultsView(View):
 
         question_responses = questionnaire_response.questionresponse_set.all()
 
+        ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
+        percentile = ordinal(int(questionnaire_response.percentile))
+
         return render(
             request,
             'maia_v2/results.html',
@@ -121,6 +124,7 @@ class QuestionnaireResultsView(View):
                 'results': questionnaire_response,
                 'scores': json.dumps(questionnaire_response.score_dict),
                 'total_score': questionnaire_response.score,
+                'score_percentile': percentile,
             },
         )
 
