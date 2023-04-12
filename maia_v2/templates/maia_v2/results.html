@@ -18,7 +18,15 @@
     <h2>Results</h2>
     <p>Your score was <strong>{{ total_score }}</strong> out of <strong>{{ questionnaire.scale_max }}</strong>, which is in the <strong>{{ score_percentile }} percentile</strong> of all {{ respondents }} respondents to this test.</p>
     <div class="chart-container"><div id="result-hist-chart"></div></div>
-    <div class="chart-container"><div id="result-bar-chart"></div></div>
+    <div class="papers">
+        <h2>Research Papers</h2>
+        <div class="chart-container"><div id="result-bar-chart"></div></div>
+        <p>We are comparing your results to other respondents on this website, as well as a variety of other papers that have done surveys using the MAIA v2 questionnaire:</p>
+        <ol>
+            {% for paper in papers %}
+                <li><a href="{{ paper.source }}">{{ paper.paper_name }}</a> ({{ paper.name }}) - {{ paper.description }}</li>
+            {% endfor %}
+        </ol>
     <script>
         var total_score = {{ total_score }};
         var max_score = {{ questionnaire.scale_max }};
