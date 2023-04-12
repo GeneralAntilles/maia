@@ -212,9 +212,6 @@ fieldset {
     max-width: 1200px;
     margin: 0 auto;
 }
-#result-hist-chart {
-    max-width: 400px;
-}
 #result-bar-chart {
     max-height: 200px;
 }
