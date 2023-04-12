@@ -45,6 +45,7 @@ class QuestionnaireData(models.Model):
     name = models.CharField(max_length=100, unique=True, null=False, blank=False)
     internal_name = models.CharField(max_length=100, unique=True, null=False,
                                      blank=False)
+    paper_name = models.CharField(max_length=1000, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     source = models.URLField(null=True, blank=True)
     score = models.FloatField(null=True, blank=True)

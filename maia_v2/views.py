@@ -133,6 +133,7 @@ class QuestionnaireResultsView(View):
 
     def get(self, request, questionnaire, respondent):
         questionnaire = Questionnaire.objects.get(internal_name=questionnaire)
+        questionnaire_data = QuestionnaireData.objects.filter(questionnaire=questionnaire)
         respondent = Respondent.objects.get(fingerprint=respondent)
         respondents = QuestionnaireResponse.objects.filter(questionnaire=questionnaire).count()
         questionnaire_response = QuestionnaireResponse.objects.filter(
@@ -160,6 +161,7 @@ class QuestionnaireResultsView(View):
             'maia_v2/results.html',
             {
                 'questionnaire': questionnaire,
+                'papers': questionnaire_data,
                 'respondent': respondent,
                 'respondents': respondents,
                 'question_responses': question_responses,
