@@ -141,3 +141,36 @@ class APIQuestionnaireResultsView(APIView):
         for key, value in questionnaire_response.score_dict.items():
             scores.append({'name': key, 'Score': value})
         return Response(scores)
+
+
+class APIQuestionnaireStatsView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, questionnaire, respondent):
+        questionnaire = Questionnaire.objects.get(internal_name=questionnaire)
+        respondent = Respondent.objects.get(fingerprint=respondent)
+        questionnaire_response = QuestionnaireResponse.objects.filter(
+            respondent=respondent).latest('date')
+        responses = QuestionnaireResponse.objects.all()
+
+        scores = [response.score for response in responses]
+
+        # Construct the histogram data
+        bins = np.array(
+            range(questionnaire.scale_min * 10,
+                  questionnaire.scale_max * 10 + 1, 5)
+        ) / 10
+        x_axis: list[str, int] = []
+        for i in bins:
+            x_axis.append(i)
+        histogram_data = {'data1': x_axis}
+
+        # Bin the scores into buckets with numpy
+        buckets = np.histogram(scores, bins=bins)[0]
+
+        y_axis = []
+        for bucket in buckets:
+            y_axis.append(bucket)
+        histogram_data['Respondents'] = y_axis
+
+        return Response(histogram_data)

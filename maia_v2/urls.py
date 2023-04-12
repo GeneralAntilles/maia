@@ -24,4 +24,9 @@ urlpatterns = [
         views.APIQuestionnaireResultsView.as_view(),
         name='questionnaire-results-api',
     ),
+    path(
+        'questionnaire/<str:questionnaire>/results/<str:respondent>/stats/',
+        views.APIQuestionnaireStatsView.as_view(),
+        name='questionnaire-stats',
+    ),
 ]
