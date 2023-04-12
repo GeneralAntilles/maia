@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 from .models import (
     Questionnaire, QuestionCategory, Question,
     Respondent,
-    QuestionnaireResponse, QuestionResponse,
+    QuestionnaireResponse, QuestionResponse, QuestionnaireData
 )
 
 
