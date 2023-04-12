@@ -1,3 +1,5 @@
+import numpy as np
+
 from django.db import models
 
 
@@ -117,6 +119,17 @@ class QuestionnaireResponse(models.Model):
                                    null=False, blank=False)
     # We store the date and time the questionnaire was completed
     date = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+
+    @property
+    def percentile(self):
+        """
+        Calculate the percentile for the questionnaire response.
+        """
+        score = self.score
+        questionnaire_responses = QuestionnaireResponse.objects.filter(
+            questionnaire=self.questionnaire)
+        scores = sorted([qr.score for qr in questionnaire_responses])
+        return np.sum(np.array(scores) <= score) / len(scores) * 100
 
     @property
     def score(self):
