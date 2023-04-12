@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-lg">
+<div class="container-lg" id="content">
     <h1>{{ questionnaire.display_name }}</h1>
     <h2>Results</h2>
     <p>Your score was <strong>{{ total_score }}</strong> out of <strong>{{ questionnaire.scale_max }}</strong>, which is in the <strong>{{ score_percentile }} percentile</strong> of all {{ respondents }} respondents to this test.</p>
