@@ -5,6 +5,7 @@
 {% block head_title %}{{ questionnaire.display_name }}{% endblock %}
 
 {% block content %}
+<div class="container-lg" id="content">
     <h1>{{ questionnaire.display_name }}</h1>
     {% crispy form %}
     <p class="total">Total score: <span id="total-score">-</span></p>
