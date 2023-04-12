@@ -3,6 +3,9 @@ html {
     position: relative;
     min-height: 100%;
 }
+body {
+    min-height: 100vh;
+}
 
 /* Navbar */
 .navbar {
