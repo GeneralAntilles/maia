@@ -47,6 +47,11 @@ var bar_chart = bb.generate({
             mimeType: "json",
             keys: { x: "name", value: ["Museum visitors", "Hospital pre-treatment", "Hospital post-treatment"] },
             type: "bar",
+            colors: {
+                "Museum visitors": "#e8b8ce",
+                "Hospital pre-treatment": "#f0d4bb",
+                "Hospital post-treatment": "#acdcac"
+            },
         });
     }
 });
