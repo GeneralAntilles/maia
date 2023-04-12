@@ -6,19 +6,20 @@ var histogram_chart = bb.generate({
         mimeType: "json",
         keys: { x: "data1", value: ["Respondents"] },
         type: "bar",
+        // Color the bars red if the user's score is in the same bin
+        color: function (color, d) {
+            if (d.value == bucket) { return "red"; }
+            return color;
+        },
     },
     axis: {
         y: { padding: 0 }
     },
     bar: { width: { ratio: 1 } },
     legend: { hide: true },
-    color: function(color, d) {
-        console.log(d);
-        if (d.value == total_score) { return "#ff0000"; }
-        return color;
-    },
     bindto: "#result-hist-chart",
 });
+
 
 var bar_chart = bb.generate({
     data: {
