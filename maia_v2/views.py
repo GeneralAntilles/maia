@@ -155,10 +155,15 @@ class APIQuestionnaireStatsView(APIView):
 
         scores = [response.score for response in responses]
 
+        histogram_data = self.histogram_data(scores, questionnaire)
+
+        return Response(histogram_data)
+
+    def histogram_data(self, data, questionnaire, bin_step=1):
         # Construct the histogram data
         bins = np.array(
             range(questionnaire.scale_min * 10,
-                  questionnaire.scale_max * 10 + 1, 5)
+                  questionnaire.scale_max * 10 + 1, bin_step)
         ) / 10
         x_axis: list[str, int] = []
         for i in bins:
@@ -166,11 +171,11 @@ class APIQuestionnaireStatsView(APIView):
         histogram_data = {'data1': x_axis}
 
         # Bin the scores into buckets with numpy
-        buckets = np.histogram(scores, bins=bins)[0]
+        buckets = np.histogram(data, bins=bins)[0]
 
         y_axis = []
         for bucket in buckets:
             y_axis.append(bucket)
         histogram_data['Respondents'] = y_axis
 
-        return Response(histogram_data)
+        return histogram_data
