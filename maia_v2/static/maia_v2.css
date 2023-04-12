@@ -6,6 +6,7 @@ html {
 body {
     min-height: 100vh;
     color: #002137;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 /* Navbar */
