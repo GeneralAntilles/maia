@@ -191,7 +191,7 @@ fieldset {
 /* Charts */
 .chart-container {
     padding: 0 1rem 0 0;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 #result-hist-chart {
