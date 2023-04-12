@@ -172,6 +172,40 @@ class APIQuestionnaireResultsView(APIView):
         return Response(scores)
 
 
+class APIQuestionnaireComparisonView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, questionnaire, respondent):
+        questionnaire = Questionnaire.objects.get(internal_name=questionnaire)
+
+        # Generate comparison data from the database
+        comparison_data_sources = QuestionnaireData.objects.filter(questionnaire=questionnaire)
+        comparison_data = []
+        for comparison_data_source in comparison_data_sources:
+            comparison_data.append({
+                'name': comparison_data_source.name,
+                'description': comparison_data_source.description,
+                'scores': json.loads(comparison_data_source.scores),
+                'total_score': comparison_data_source.score,
+            })
+
+        # Reshape to feed the billboard.js bar chart
+        scores = []
+        category_map = QuestionCategory.objects.filter(questionnaire=questionnaire).values('internal_name', 'name')
+        category_map = {c['internal_name']: c['name'] for c in category_map}
+        # FIXME: This is hardcoded and should be generated from the database
+        for category in category_map.keys():
+            scores.append({
+                'name': category_map[category],
+                'Museum visitors': comparison_data[0]['scores'][category],
+                'Social media': comparison_data[3]['scores'][category],
+                'Hospital post-treatment': comparison_data[2]['scores'][category],
+                'Hospital pre-treatment': comparison_data[1]['scores'][category],
+            })
+
+        return Response(scores)
+
+
 class APIQuestionnaireStatsView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 

@@ -25,6 +25,11 @@ urlpatterns = [
         name='questionnaire-results-api',
     ),
     path(
+        'questionnaire/<str:questionnaire>/results/<str:respondent>/comparison/',
+        views.APIQuestionnaireComparisonView.as_view(),
+        name='questionnaire-comparison',
+    ),
+    path(
         'questionnaire/<str:questionnaire>/results/<str:respondent>/stats/',
         views.APIQuestionnaireStatsView.as_view(),
         name='questionnaire-stats',
