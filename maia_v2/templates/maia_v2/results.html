@@ -1,7 +1,7 @@
 {% extends 'maia_v2/base.html' %}
 {% load i18n %}
 {% load static %}
-{% block head_title %}{% trans "Home" %}{% endblock %}
+{% block head_title %}{{ questionnaire.display_name }} - Results{% endblock %}
 
 {% block js %}
 <script src="https://d3js.org/d3.v7.min.js"></script>
