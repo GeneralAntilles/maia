@@ -18,3 +18,11 @@ MAIA Version 2 is a 37-item quistionnaire that assesses various dimensions of in
 8. **Trusting**: The confidence in one's ability to interpret and respond to bodily signals appropriately.
 
 MAIA has been employed in various research contexts, such as studying the relationship between interoceptive awareness and mental health, investigating the role of interoception in mindfulness practices, and understanding how interoceptive awareness may contribute to the development and treatment of different psychological disorders.
+
+## Comparison data
+
+### Papers
+
+1. [The Multidimensional Assessment of Interoceptive Awareness, Version 2 (MAIA-2)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0208034) - 1,090 museum visitors.
+2. [Validation of the Multidimensional Assessment of Interoceptive Awareness (MAIA-2) questionnaire in hospitalized patients with major depressive disorder](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0253913) - 110 hospitalized patients with major depressive disorder (German).
+3. [Examining the Factor Structure and Validity of the Multidimensional Assessment of Interoceptive Awareness](https://doi.org/10.1080/00223891.2020.1813147) - 644 and 1,516 participants from two studies gathered social media sources and an online newspaper covering psychology-related subjects, respectively.
