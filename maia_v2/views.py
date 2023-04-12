@@ -147,10 +147,8 @@ class QuestionnaireResultsView(View):
         # respondents. No point showing a lot of histogram bins if there are
         # only a few respondents.
         if respondents > 20:
-            bin_step = 5
+            bin_step = 3
         elif respondents > 50:
-            bin_step = 2
-        elif respondents > 100:
             bin_step = 1
         else:
             bin_step = 10
@@ -242,10 +240,8 @@ class APIQuestionnaireStatsView(APIView):
         # respondents. No point showing a lot of histogram bins if there are
         # only a few respondents.
         if responses.count() > 20:
-            bin_step = 5
+            bin_step = 3
         elif responses.count() > 50:
-            bin_step = 2
-        elif responses.count() > 100:
             bin_step = 1
         else:
             bin_step = 10
