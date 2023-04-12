@@ -4,6 +4,7 @@ import uuid
 
 import numpy as np
 
+from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import View
@@ -20,12 +21,20 @@ from .models import (Question, QuestionCategory, QuestionResponse,
 def index(request):
     questionnaires = Questionnaire.objects.filter(published=True)
 
-    return render(request, 'maia_v2/index.html', {'questionnaires': questionnaires})
+    return render(
+        request,
+        'maia_v2/index.html',
+        {
+            'questionnaires': questionnaires,
+            'current_site': Site.objects.get_current(),
+        },
+    )
 
 
 class QuestionnaireFormView(View):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.current_site = Site.objects.get_current()
         self.questionnaire = None
         self.questions = None
         self.categories = None
@@ -40,6 +49,7 @@ class QuestionnaireFormView(View):
             'questions': self.questions,
             'categories': self.categories,
             'form': self.form,
+            'current_site': self.current_site,
         }
 
         return render(request, f'maia_v2/{questionnaire}.html', response)
@@ -54,6 +64,7 @@ class QuestionnaireFormView(View):
             'questions': self.questions,
             'categories': self.categories,
             'form': self.form,
+            'current_site': self.current_site,
         }
 
         if form_submission.is_valid():
@@ -105,6 +116,10 @@ class QuestionnaireFormView(View):
 
 
 class QuestionnaireResultsView(View):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.current_site = Site.objects.get_current()
+
     def get(self, request, questionnaire, respondent):
         questionnaire = Questionnaire.objects.get(internal_name=questionnaire)
         respondent = Respondent.objects.get(fingerprint=respondent)
@@ -128,6 +143,7 @@ class QuestionnaireResultsView(View):
                 'total_score': questionnaire_response.score,
                 'score_percentile': percentile,
                 'bucket': self.histogram_bucket(questionnaire_response.score, questionnaire),
+                'current_site': self.current_site,
             },
         )
 
