@@ -15,7 +15,7 @@ from rest_framework.views import APIView
 from .forms import get_questionnaire_form
 from .models import (Question, QuestionCategory, QuestionResponse,
                      Questionnaire, QuestionnaireResponse,
-                     Respondent)
+                     Respondent, QuestionnaireData)
 
 
 def index(request):

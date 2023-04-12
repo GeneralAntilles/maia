@@ -94,9 +94,18 @@ class RespondentAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
 
+class QuestionnaireDataAdmin(admin.ModelAdmin):
+    list_display = ('questionnaire', 'name', 'internal_name', 'description', 'score')
+    search_fields = ('questionnaire',)
+    list_filter = ('questionnaire',)
+    sortable_by = ('id', 'questionnaire', 'date')
+    ordering = ('id',)
+
+
 admin.site.register(QuestionCategory, QuestionCategoryAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Questionnaire, QuestionnaireAdmin)
 admin.site.register(Respondent, RespondentAdmin)
+admin.site.register(QuestionnaireData, QuestionnaireDataAdmin)
 admin.site.register(QuestionnaireResponse, QuestionnaireResponseAdmin)
 admin.site.register(QuestionResponse, QuestionResponseAdmin)

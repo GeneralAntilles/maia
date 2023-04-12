@@ -33,6 +33,26 @@ class Questionnaire(models.Model):
         return str(self.internal_name)
 
 
+class QuestionnaireData(models.Model):
+    """
+    Model for data from other papers that can be used for comparison.
+
+    We do not have access to the raw data so this is just high-level results
+    data.
+    """
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE,
+                                      null=False, blank=False, default=1)
+    name = models.CharField(max_length=100, unique=True, null=False, blank=False)
+    internal_name = models.CharField(max_length=100, unique=True, null=False,
+                                     blank=False)
+    description = models.TextField(null=True, blank=True)
+    source = models.URLField(null=True, blank=True)
+    score = models.FloatField(null=True, blank=True)
+    scores = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.internal_name)
+
 class QuestionCategory(models.Model):
     """
     Model for the question categories.
