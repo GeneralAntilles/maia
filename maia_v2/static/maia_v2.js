@@ -78,15 +78,15 @@ window.addEventListener("load", function() {
 function updateScoreColor(ele) {
     var score = parseFloat(ele.innerHTML);
     if (score >= 0 && score <= 1) {
-        ele.style.color = "#ff0000";
+        ele.style.color = "#c14545";
     } else if (score >= 1 && score <= 2) {
-        ele.style.color = "#ff9900";
+        ele.style.color = "#da9938";
     } else if (score >= 2 && score <= 3) {
-        ele.style.color = "#ffff00";
+        ele.style.color = "#e2e241";
     } else if (score >= 3 && score <= 4) {
-        ele.style.color = "#00ff00";
+        ele.style.color = "#44d544";
     } else if (score >= 4 && score <= 5) {
-        ele.style.color = "#00ffff";
+        ele.style.color = "#42c6c6";
     }
 }
 
