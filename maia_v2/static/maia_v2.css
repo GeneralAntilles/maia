@@ -106,7 +106,7 @@ footer {
 }
 @media (prefers-color-scheme: dark) {
     .form-group:nth-child(odd) {
-        background-color: #2f353e;
+        background-color: #3a424e;
     }
 }
 legend {
