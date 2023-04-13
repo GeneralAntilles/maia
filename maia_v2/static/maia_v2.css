@@ -34,6 +34,33 @@ body {
     color: #537184;
 }
 
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: #2f353e;
+    }
+    body {
+        background-color: #2f353e;
+        color: #e3f0f7;
+    }
+    .navbar {
+        background-color: #33445e;
+        border-bottom: 3px solid #aabbc5;
+    }
+    .navbar-brand span {
+        color: #eff4f7;
+    }
+    .navbar a {
+        color: #7294aa;
+    }
+    .navbar .active {
+        color: #7cb4d9 !important;
+    }
+    .footer {
+        background-color: #33445e;
+        border-top: 3px solid #aabbc5;
+    }
+}
+
 #content {
     padding-bottom: 100px;
     min-height: 100%;
@@ -192,6 +219,11 @@ fieldset {
     display: flex;
     flex-basis: calc(50% - 0.15rem);
     justify-content: space-between;
+}
+@media (prefers-color-scheme: dark) {
+    .score-item {
+        background-color: #2f353e;
+    }
 }
 .score-item p {
     margin: 0;
