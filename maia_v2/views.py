@@ -191,13 +191,14 @@ class APIQuestionnaireResultsView(APIView):
             respondent=respondent).latest('date')
         scores = []
         for key, value in questionnaire_response.score_dict.items():
-            scores.append({'name': key, 'You': value})
+            scores.append({'name': key, 'value': value})
         return Response(scores)
 
 
 class APIQuestionnaireComparisonView(APIView):
     def get(self, request, questionnaire, respondent):
         questionnaire = Questionnaire.objects.get(internal_name=questionnaire)
+        categories = QuestionCategory.objects.filter(questionnaire=questionnaire).values('internal_name', 'name')
 
         # Generate comparison data from the database
         comparison_data_sources = QuestionnaireData.objects.filter(questionnaire=questionnaire)
@@ -210,20 +211,42 @@ class APIQuestionnaireComparisonView(APIView):
                 'total_score': comparison_data_source.score,
             })
 
-        # Reshape to feed the billboard.js bar chart
-        scores = []
-        category_map = QuestionCategory.objects.filter(questionnaire=questionnaire).values('internal_name', 'name')
-        category_map = {c['internal_name']: c['name'] for c in category_map}
-        for category in category_map.keys():
-            category_dict = { 'name': category_map[category] }
-            # Generate the data from each comparison data source dynamically
-            # for each category
-            for comparison_data_source in comparison_data:
-                category_dict[comparison_data_source['name']] = (
-                    comparison_data_source['scores'][category])
-            scores.append(category_dict)
+        # Generate comparison data from the respondents
+        questionnaire_responses = QuestionnaireResponse.objects.filter(questionnaire=questionnaire)
+        respondents_summary_data = self.construct_respondents_summary_data(questionnaire_responses, categories)
 
-        return Response(scores)
+        # Reshape to feed the Charts.js bar chart
+        category_map = {c['internal_name']: c['name'] for c in categories}
+        # Generate the data from each comparison data source dynamically
+        # for each category
+        comparison_dict = {}
+        for comparison_data_source in comparison_data:
+            # Each comparison data source should have a dict with the scores
+            # for each category { 'name': 'category_name', 'score': 0.5 }
+            scores = []
+            for category in category_map.keys():
+                scores.append({
+                    'name': category_map[category],
+                    'value': comparison_data_source['scores'][category]
+                })
+            comparison_dict[comparison_data_source['name']] = scores
+
+        return Response(comparison_dict)
+
+    def construct_respondents_summary_data(self, questionnaire_responses, categories):
+        """
+        Construct a summary of the respondents' scores to match the
+        comparison_data available in the database.
+        """
+        scores = {}
+        for category in categories:
+            scores[category['name']] = []
+        for questionnaire_response in questionnaire_responses:
+            for category in categories:
+                scores[category['name']].append(
+                    questionnaire_response.score_dict[category['name']])
+
+        return scores
 
 
 class APIQuestionnaireStatsView(APIView):
