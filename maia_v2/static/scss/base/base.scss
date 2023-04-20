@@ -1,0 +1,84 @@
+html {
+    background-color: $bg-color;
+    position: relative;
+    min-height: 100%;
+}
+body {
+    min-height: 100vh;
+    color: #002137;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    background-color: $bg-color;
+    border-bottom: 3px solid $accent1;
+    margin: 0 0 1rem 0;
+}
+.logo {
+    height: 54px;
+    margin: 0 0.5rem 0 0;
+    vertical-align: middle;
+}
+.navbar-brand span {
+    font-family: "Arima", sans-serif;
+    vertical-align: bottom;
+    font-size: 2rem;
+    color: #002137;
+}
+.navbar ul {
+    margin-left: auto;
+}
+.navbar .active {
+    color: darken($text-color, 20%) !important;
+}
+.navbar a {
+    padding: 0;
+    color: lighten($text-color, 10%) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: $bg-color-dark;
+    }
+    body {
+        background-color: $bg-color-dark;
+        color: $text-color-dark;
+    }
+    .navbar {
+        background-color: #2a313b;
+        border-bottom: 3px solid $accent3;
+    }
+    .navbar-brand span {
+        color: #eff4f7;
+    }
+    .navbar a {
+        color: darken($text-color-dark, 10%) !important;
+    }
+    .navbar .active {
+        color: lighten($text-color-dark, 20%)  !important;
+    }
+    .footer {
+        background-color: #2a313b;
+        border-top: 3px solid #aabbc5;
+    }
+}
+
+#content {
+    padding-bottom: 100px;
+    min-height: 100%;
+}
+/* Footer */
+footer {
+    background-color: $bg-color;
+    border-top: 3px solid #aabbc5;
+    padding: 1.5rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 1.5rem;
+}
+footer .iconify {
+    font-size: 2rem;
+}

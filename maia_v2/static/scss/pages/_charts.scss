@@ -1,0 +1,18 @@
+/* Charts */
+.chart-container {
+    padding: 0 1rem 0 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+#result-hist-chart {
+    max-height: 250px;
+    margin: 1rem 0;
+}
+#result-bar-chart {
+    margin: 1rem 0;
+}
+@media (min-width: 768px) {
+    #result-bar-chart {
+        max-height: 250px;
+    }
+}
