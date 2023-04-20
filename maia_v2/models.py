@@ -152,13 +152,13 @@ class QuestionnaireResponse(models.Model):
         """
         Override the save method to calculate the score.
         """
+        super().save(*args, **kwargs)
         if (
             self.score is None and
             self.questionnaire.questions == self.questionresponse_set.count()
         ):
             self.score = self.calculate_score()
-
-        super().save(*args, **kwargs)
+            super().save(*args, **kwargs)
 
     def calculate_score(self):
         """
