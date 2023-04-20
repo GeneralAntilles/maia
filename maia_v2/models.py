@@ -146,23 +146,27 @@ class QuestionnaireResponse(models.Model):
                                    null=False, blank=False)
     # We store the date and time the questionnaire was completed
     date = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+    score = models.FloatField(null=True, blank=True)
 
-    @property
-    def percentile(self):
+    def save(self, *args, **kwargs):
         """
-        Calculate the percentile for the questionnaire response.
+        Override the save method to calculate the score.
         """
-        score = self.score
-        questionnaire_responses = QuestionnaireResponse.objects.filter(
-            questionnaire=self.questionnaire)
-        scores = sorted([qr.score for qr in questionnaire_responses])
-        return np.sum(np.array(scores) <= score) / len(scores) * 100
+        if (
+            self.score is None and
+            self.questionnaire.questions == self.questionresponse_set.count()
+        ):
+            self.score = self.calculate_score()
 
-    @property
-    def score(self):
+        super().save(*args, **kwargs)
+
+    def calculate_score(self):
         """
         Calculate the score for the questionnaire response.
         """
+        if self.questionnaire.questions > self.questionresponse_set.count():
+            return None
+
         score = 0
         for category in self.questionnaire.questioncategory_set.all():
             category_score = 0
@@ -210,6 +214,15 @@ class QuestionResponse(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE,
                                  null=False, blank=False)
     answer = models.IntegerField(null=False, blank=False)
+
+    def save(self, *args, **kwargs):
+        """
+        Override the save method to calculate the score for the questionnaire
+        response.
+        """
+        super().save(*args, **kwargs)
+        self.questionnaire_response.score = self.questionnaire_response.calculate_score()
+        self.questionnaire_response.save()
 
     def __str__(self):
         return f'{self.question.id}. {self.question.text}: {self.answer}'
