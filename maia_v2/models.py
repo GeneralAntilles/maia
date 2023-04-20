@@ -181,6 +181,17 @@ class QuestionnaireResponse(models.Model):
         return score
 
     @property
+    def percentile(self):
+        """
+        Calculate the percentile for the questionnaire response.
+        """
+        score = self.score
+        questionnaire_responses = QuestionnaireResponse.objects.filter(
+            questionnaire=self.questionnaire)
+        scores = sorted([qr.score for qr in questionnaire_responses])
+        return np.sum(np.array(scores) <= score) / len(scores) * 100
+
+    @property
     def score_dict(self):
         """
         Calculate the score for the questionnaire response.
