@@ -1,3 +1,10 @@
+# Bootstrap
+maia_v2/static/bootstrap/
+maia_v2/static/css/main.css*
+
+# Django
+questions.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
