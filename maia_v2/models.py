@@ -208,6 +208,27 @@ class QuestionnaireResponse(models.Model):
 
         return score
 
+    @property
+    def percentile_dict(self):
+        """
+        Calculate the percentile for each category score in the questionnaire
+        response.
+        """
+        score = {}
+        for category in self.questionnaire.questioncategory_set.all():
+            category_score = 0
+            for question_response in self.questionresponse_set.filter(
+                    question__category=category):
+                category_score += question_response.answer
+
+            category_score = category_score / category.questions
+            questionnaire_responses = QuestionnaireResponse.objects.filter(
+                questionnaire=self.questionnaire)
+            scores = sorted([qr.score for qr in questionnaire_responses])
+            score[category.name] = np.sum(np.array(scores) <= category_score) / len(scores) * 100
+
+        return score
+
     def __str__(self):
         return f'{self.questionnaire.name} ({self.respondent.id}) {self.date.date()} - {self.score}'
 
