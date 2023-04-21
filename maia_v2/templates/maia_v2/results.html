@@ -1,6 +1,7 @@
 {% extends 'maia_v2/base.html' %}
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 {% block head_title %}{{ questionnaire.display_name }} - Results{% endblock %}
 
 {% block js %}
@@ -15,6 +16,43 @@
     <h1>{{ questionnaire.display_name }}</h1>
     <h2>Results</h2>
     <p>Your score was <strong>{{ total_score }}</strong> out of <strong>{{ questionnaire.scale_max }}</strong>, which is in the <strong>{{ score_percentile }} percentile</strong> of all {{ respondents }} respondents to this test.</p>
+    <table class="long-table table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Score</th>
+                <th>Percentile</th>
+            </tr>
+        </thead>
+        {% for category, score in category_results.items %}
+            <tr>
+                <td>{{ category }}</td>
+                <td>{{ score.0|floatformat:2 }}</td>
+                <td>{{ score.1|floatformat:0 }}%</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <table class="wide-table table table-sm table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                {% for category in category_results.keys %}
+                    <th>{{ category }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tr>
+            <th>Score</th>
+            {% for score in category_results.values %}
+                <td>{{ score.0|floatformat:2 }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>Percentile</th>
+            {% for score in category_results.values %}
+                <td>{{ score.1|floatformat:0 }}%</td>
+            {% endfor %}
+    </table>
     <div class="chart-container"><canvas id="result-hist-chart"></canvas></div>
     <div class="papers">
         <h2>Research Papers</h2>

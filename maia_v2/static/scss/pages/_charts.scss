@@ -11,8 +11,20 @@
 #result-bar-chart {
     margin: 1rem 0;
 }
+.wide-table {
+    display: none;
+}
+.long-table {
+    display: table;
+}
 @media (min-width: 768px) {
     #result-bar-chart {
         max-height: 250px;
+    }
+    .wide-table {
+        display: table;
+    }
+    .long-table {
+        display: none;
     }
 }
