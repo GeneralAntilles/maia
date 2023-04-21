@@ -154,6 +154,13 @@ class QuestionnaireResultsView(View):
             bin_step = 10
         bucket = self.histogram_bucket(questionnaire_response.score,
                                        questionnaire, bin_step=bin_step)
+        category_results = {
+            category: [
+                questionnaire_response.score_dict[category],
+                questionnaire_response.percentile_dict[category],
+            ]
+            for category in questionnaire_response.score_dict
+        }
         return render(
             request,
             'maia_v2/results.html',
@@ -163,6 +170,7 @@ class QuestionnaireResultsView(View):
                 'respondent': respondent,
                 'respondents': respondents,
                 'question_responses': question_responses,
+                'category_results': category_results,
                 'results': questionnaire_response,
                 'scores': json.dumps(questionnaire_response.score_dict),
                 'total_score': questionnaire_response.score,
