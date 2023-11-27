@@ -4,8 +4,10 @@ The [Multidimensional Assessment of Interoceptive Awaraness questionnaire](https
 
 The [official questionnaire](https://osher.ucsf.edu/sites/osher.ucsf.edu/files/inline-files/MAIA2%202018.05.27.pdf) is a PDF document that requires manual scoring and I built this to make it easier to take and score the questionnaire.
 
-<img src="documentation/images/survey-preview.png" alt="Survey preview" width="400"/>
-<img src="documentation/images/results-preview.png" alt="Results preview" width="400"/>
+<p align="center">
+<img src="documentation/images/survey-preview.png" alt="Survey preview" width="500"/>
+<img src="documentation/images/results-preview.png" alt="Results preview" width="500"/>
+</p>
 
 ## MAIA Version 2
 
