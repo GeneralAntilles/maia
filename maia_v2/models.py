@@ -28,7 +28,7 @@ class Questionnaire(ModelMeta, models.Model):
 
     _metadata = {
         'title': 'Abelify',
-        'description': 'A collection of hobby projects by Ryan Abel.',
+        'description': 'get_meta_description',
         'keywords': ['Python', 'Django', 'open source', 'questionnaire'],
         'image': 'get_meta_image',
         'use_sites': True,
@@ -47,6 +47,9 @@ class Questionnaire(ModelMeta, models.Model):
 
     def get_meta_image(self):
         return self.preview_image.url if self.preview_image else 'media/630.png'
+
+    def get_meta_description(self):
+        return self.description
 
     def __str__(self):
         return str(self.internal_name)
