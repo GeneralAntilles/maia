@@ -76,6 +76,7 @@ class QuestionnaireFormView(View):
             'categories': self.categories,
             'form': self.form,
             'current_site': self.current_site,
+            'meta': self.questionnaire.as_meta(request),
         }
 
         return render(request, f'maia_v2/{questionnaire}.html', response)
