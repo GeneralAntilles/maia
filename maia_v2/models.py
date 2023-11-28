@@ -1,9 +1,11 @@
 import numpy as np
 
 from django.db import models
+from meta.models import ModelMeta
 
 
-class Questionnaire(models.Model):
+
+class Questionnaire(ModelMeta, models.Model):
     """
     Model for the questionnaires.
     """
@@ -21,6 +23,20 @@ class Questionnaire(models.Model):
     scale_min = models.IntegerField(null=True, blank=True)
     scale_max = models.IntegerField(null=True, blank=True)
 
+    preview_image = models.ImageField(upload_to='questionnaire_images',
+                                      null=True, blank=True)
+
+    _metadata = {
+        'title': 'Abelify',
+        'description': 'A collection of hobby projects by Ryan Abel.',
+        'keywords': ['Python', 'Django', 'open source', 'questionnaire'],
+        'image': 'get_meta_image',
+        'use_sites': True,
+        'og_type': 'website',
+        'use_og': True,
+        'use_twitter': True,
+    }
+
     @property
     def display_name(self):
         return self.short_name or self.name
@@ -28,6 +44,9 @@ class Questionnaire(models.Model):
     @property
     def questions(self):
         return self.question_set.count()
+
+    def get_meta_image(self):
+        return self.preview_image.url if self.preview_image else 'media/630.png'
 
     def __str__(self):
         return str(self.internal_name)

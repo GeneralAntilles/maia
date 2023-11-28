@@ -33,7 +33,7 @@ class QuestionnaireAdmin(admin.ModelAdmin):
         (None, {
             'fields': ('name', 'internal_name', 'short_name', 'description',
                        'instructions', 'scale', 'scale_max', 'scale_min',
-                       'question_list'),
+                       'preview_image', 'question_list'),
         }),
     )
 
