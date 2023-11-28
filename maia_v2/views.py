@@ -8,6 +8,7 @@ from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import View
+from meta.views import Meta
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -15,6 +16,23 @@ from .forms import get_questionnaire_form
 from .models import (Question, QuestionCategory, QuestionResponse,
                      Questionnaire, QuestionnaireResponse,
                      Respondent, QuestionnaireData)
+
+
+meta = Meta(
+    title='Abelify',
+    description='A collection of hobby projects by Ryan Abel.',
+    keywords=['Python', 'Django', 'open source', 'questionnaire'],
+    image_object={
+        'url': 'media/512.png',
+        'alt': 'Abelify logo',
+        'type': 'image/png',
+    },
+    url='/',
+    use_sites=True,
+    og_type='website',
+    use_og=True,
+    use_twitter=True,
+)
 
 
 def index(request):
@@ -26,6 +44,7 @@ def index(request):
         {
             'questionnaires': questionnaires,
             'current_site': Site.objects.get_current(),
+            'meta': meta,
         },
     )
 

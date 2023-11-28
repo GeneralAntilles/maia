@@ -1,11 +1,13 @@
 {% load static %}
 {% load i18n %}
+{% load meta %}
 {% get_current_language as LANGUAGE_CODE %}
 <!doctype html>
 <html lang="en">
-    <head>
+    <head {% meta_namespaces %}>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% include 'meta/meta.html' %}
         <link rel="icon" href="{% static 'media/favicon.png' %}" type="image/png">
         <link rel="icon" href="{% static 'media/icon.svg' %}"" type="image/svg+xml">
         <link rel="apple-touch-icon" href="{% static 'media/apple-touch-icon.png' %}">
