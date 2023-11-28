@@ -27,7 +27,6 @@ meta = Meta(
         'alt': 'Abelify logo',
         'type': 'image/png',
     },
-    url='/',
     use_sites=True,
     og_type='website',
     use_og=True,
@@ -37,6 +36,7 @@ meta = Meta(
 
 def index(request):
     questionnaires = Questionnaire.objects.filter(published=True)
+    meta.url = '/'
 
     return render(
         request,
