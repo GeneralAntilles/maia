@@ -22,11 +22,7 @@ meta = Meta(
     title='Abelify',
     description='A collection of hobby projects by Ryan Abel.',
     keywords=['Python', 'Django', 'open source', 'questionnaire'],
-    image_object={
-        'url': 'media/512.png',
-        'alt': 'Abelify logo',
-        'type': 'image/png',
-    },
+    image='media/630.png',
     use_sites=True,
     og_type='website',
     use_og=True,
